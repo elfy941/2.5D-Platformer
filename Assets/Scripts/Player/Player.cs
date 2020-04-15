@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour {
 
@@ -49,5 +50,11 @@ public class Player : MonoBehaviour {
 
     private bool AbleToDoubleJump() {
         return Input.GetKeyDown(KeyCode.Space) && _canDoubleJump;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("Collision");
+        var collectible = other.GetComponent<ICollectible>();
+        collectible?.Collect();
     }
 }
