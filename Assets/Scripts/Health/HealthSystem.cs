@@ -6,6 +6,7 @@ public class HealthSystem {
     private int _health;
     private int _maxHealth;    
     public event EventHandler OnHealthChanges;
+    public event EventHandler OnHealthZero;
     
     
     public HealthSystem(int health) {
@@ -17,6 +18,10 @@ public class HealthSystem {
         return _health;
     }
 
+    public void Kill() {
+        Damage(_health);
+    }
+
     public void Damage(int damage) {
         if (_health - damage >= 0) {
             _health -= damage;    
@@ -24,6 +29,11 @@ public class HealthSystem {
             _health = 0;
         }
         OnHealthChanges?.Invoke(this, EventArgs.Empty);
+
+        if (_health == 0) {
+            OnHealthZero?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
 
     public void Heal(int amount) {

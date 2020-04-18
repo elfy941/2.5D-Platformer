@@ -6,5 +6,8 @@
         
         //PLAYER
         public static readonly string PlayerTag = "Player";
+        
+        //SCENES
+        public static readonly int TestScene = 0;
     }
 }

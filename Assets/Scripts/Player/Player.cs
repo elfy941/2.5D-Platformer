@@ -18,14 +18,22 @@ public class Player : MonoBehaviour {
     private float _yVelocity;
 
     private bool _canDoubleJump;
+
+    private HealthSystem _healthSystem;
     void Start() {
         _characterController = GetComponent<CharacterController>();
     }
     
     void Update() {
         CalculateMovement();
+        if (_characterController.transform.position.y < -30) {
+            _healthSystem.Kill();
+        }
     }
 
+    public void SetHealthSystem(HealthSystem healthSystem) {
+        _healthSystem = healthSystem;
+    }
     private void CalculateMovement() {
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
